@@ -1,5 +1,6 @@
 package br.edu.JFreeChart.controll;
 
+import java.awt.BasicStroke;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,9 @@ import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
+
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 
 import br.edu.JFreeChart.model.BD;
 import br.edu.JFreeChart.model.Dado;
@@ -69,6 +73,7 @@ public class Controll {
 				bd.add(dado);
 				Janela.dataSet.addValue(dado.getValor(), dado.getNome(), dado.getSuperFamilia());
 				Janela.dataSet2.addValue(dado.getValor(), dado.getNome(), dado.getSuperFamilia());
+				
 				
 			}catch(Exception e){
 				
@@ -134,6 +139,15 @@ public class Controll {
 			Janela.dataSet.addValue(dado.getValor(), dado.getNome(), ((DadoQualitativo)dado).getSuperFamilia());
 			Janela.dataSet2.addValue(dado.getValor(), dado.getNome(), ((DadoQualitativo)dado).getSuperFamilia());
 		}
+		
+		CategoryPlot plot = (CategoryPlot)janela.getTela().getLinhaChart().getChart().getPlot();
+		
+		LineAndShapeRenderer renderer =  
+				(LineAndShapeRenderer)plot.getRenderer();
+		
+		for(int i = 0; i< plot.getDataset().getRowCount(); i++)
+			renderer.setSeriesStroke(i, new BasicStroke(3.0f)); //Grossura da linha
+
 	}
 	
 	
